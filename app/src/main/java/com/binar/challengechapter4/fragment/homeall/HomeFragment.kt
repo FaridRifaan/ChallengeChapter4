@@ -67,8 +67,8 @@ class HomeFragment : Fragment() {
         }
 
 
-    }
 
+    }
     fun layoutViewManag(){
         noteAdapt = NoteAdapter(ArrayList())
         binding.notesRecyclerView.layoutManager = LinearLayoutManager(requireContext(),
@@ -94,6 +94,10 @@ class HomeFragment : Fragment() {
             }
 
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

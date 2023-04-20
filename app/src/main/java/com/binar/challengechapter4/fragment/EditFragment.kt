@@ -38,11 +38,10 @@ class EditFragment : Fragment() {
         viewMN = ViewModelProvider(this).get(NoteVM::class.java)
 
         var getNoteData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("editData", NoteEntity::class.java)
+            arguments?.getParcelable("EDITDATA", NoteEntity::class.java)
         } else {
-            arguments?.getParcelable("editData")
+            arguments?.getParcelable("EDITDATA")
         }
-
         if (getNoteData != null) {
             binding.etEditTitle.setText(getNoteData.title)
         }
@@ -50,19 +49,16 @@ class EditFragment : Fragment() {
             binding.etEditDescription.setText(getNoteData.description)
         }
         binding.btnUpdate.setOnClickListener {
-                editNote()
+            editNote()
         }
-
 
     }
     fun editNote() {
         var title = binding.etEditTitle.text.toString()
         var note = binding.etEditDescription.text.toString()
 
-
         GlobalScope.async {
             var edit = dbNote?.noteDao()?.updateNote(NoteEntity(id, title, note))
-
 
         }
         Toast.makeText(requireContext(), "Data note berhasil di edit", Toast.LENGTH_LONG).show()
